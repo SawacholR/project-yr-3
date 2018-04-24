@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="application">
+    <head>
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <!-- Bootstrap theme -->
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <style>.selected {color:white;background-color:red;}</style>
+    </head>
+    <body>
+    <h1 class="text-center">{{"Tanaka-san"}}'s Sushi Store</h1>
+      <h2 class="text-center">Open Since {{10*200}} </h2>
+    	<div class="container">
+        	<div class="row">
+           	 	<div class="col-md-6">
+    				<div class="list-group" ng-controller="storeController as store">                
+        				<div class="list-group-item" ng-repeat="sushi in sushis" ng-class="{'selected' : purchase(sushi)}">
+		            			<h1>{{sushi.name}}
+		            				<em class="pull-right">{{sushi.price | number:2}} yen</em>
+		            			</h1>
+		            			<div class="row">
+           							<div class="col-md-6"><img ng-src="{{sushi.image}}" /></div>
+            							<div class="col-md-6">
+                							<h3><strong>{{sushi.quantity}}</strong></h3>
+                							<div ng-show="sushi.canPurchase">
+	                							Include wasabi : <input type="checkbox" ng-model="checked" /></br>
+	                							<button class="btn btn-default pull-right" ng-show="sushi.purchase(sushi)">purchase</button>
+								                <button class="btn btn-default" ng-click="clickAdd(sushi)">Δ</button>
+								                <button class="btn btn-default" ng-click="clickRemove(sushi)">∇</button>
+								            </div>
+								            <h3 ng-hide="sushi.purchase(sushi)">
+								            	Include wasabi : <input type="checkbox" ng-model="checked" /></br>
+								            	 <button class="btn btn-default pull-right" ng-show="sushi.purchase(sushi)">purchase</button>
+								            	<button class="btn btn-default" ng-click="clickAdd(sushi)">Δ</button>
+								                <button class="btn btn-default" ng-click="clickRemove(sushi)">∇</button></h3>
+
+            							</div>
+        						</div>
+		            			<p>{{sushi.date| date}} - {{sushi.description}}<span ng-if="checked && sushi.purchase(sushi)"> + Wasabi</span></p>
+        				</div>
+    				</div>
+				</div>
+			</div>
+		</div>
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/lib/jquery.min.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="js/lib/bootstrap.min.js"></script>
+    <!--AngularJS Javascript -->
+    <script src="js/lib/angular.min.js"></script>
+    <script src="js/app.js"></script>
+    </body>
+</html>
